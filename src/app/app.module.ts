@@ -18,7 +18,7 @@ import { HttpModule } from '@angular/http';
     ListPage,
       InfoPage,
       JadwalPage
-  ],
+  ],add
   imports: [
     BrowserModule,HttpModule,
     IonicModule.forRoot(MyApp),
