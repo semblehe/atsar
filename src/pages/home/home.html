@@ -1,40 +1,61 @@
 <ion-header>
-   <ion-toolbar color="primary">
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Radio</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Radio</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card *ngFor="let r of radio" text-wrap>
-      <div style="background: #488aff;c;padding: 5px">
-      <span style="font-size:14pt;margin-left:4px;color: white">{{r.judul}}</span>
-      </div>
-      <ion-item (click)="play(r.url,r.judul,r.pembicara)" style="padding-left: 0px">
-        <ion-thumbnail item-start style="margin:4px 8px 8px">
-      <img src="http://alilmu.net/images/{{r.gambar}}">
-    </ion-thumbnail>
+    <ion-card *ngFor="let r of radio" text-wrap>
+        <!--<div color="primary">-->
+            <ion-grid style="background: #488aff">
+                <ion-row>
+                    <ion-col style="color: white" col-10>
+                        <b>{{r.judul}}</b>
+                    </ion-col>
+                    <ion-col style="text-align: right;padding: 1px">
+                        <ion-spinner name="circles" color="light" *ngIf="m==1"></ion-spinner>
+                        <button *ngIf="r.idradio==m" (click)="pause()"  ion-button small round color="danger" style="padding:10px;height:1.5em"> <ion-icon ios="ios-pause" md="md-pause"></ion-icon></button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
 
-          <p>{{r.pembicara}}</p>
-  <!--   <ion-spinner name="dots"></ion-spinner>
-    <ion-spinner name="ios-small"></ion-spinner>
-    <ion-spinner name="circles"></ion-spinner>
-    <ion-spinner name="crescent"></ion-spinner> -->
-      </ion-item>
-      <hr>
-      <ion-grid>
-      <ion-row>
-          <ion-col>
-              1 of 3
-          </ion-col>
-          <ion-col>
-          </ion-col>
-          <ion-col style="text-align: right">
-              3 of 3
-          </ion-col>
-      </ion-row>
-      </ion-grid>
-  </ion-card>
+        <!--</div>-->
+        <button ion-item (click)="play(r.url,r.idradio,r.pembicara)" style="padding-left: 0px">
+            <ion-thumbnail item-start style="margin:4px 8px 8px">
+                <img src="http://alilmu.net/images/{{r.gambar}}">
+            </ion-thumbnail>
+
+            <p>{{r.pembicara}}</p>
+            <!--<p >{{a}}</p>-->
+            <!--<p>{{test}}</p>-->
+            <!--<ion-spinner name="dots"></ion-spinner>-->
+              <!--<ion-spinner name="ios-small"></ion-spinner>-->
+              <!--<ion-spinner name="circles"></ion-spinner>-->
+              <!--<ion-spinner name="crescent"></ion-spinner>-->
+        </button>
+        <hr>
+        <ion-grid style="padding: 0px;">
+            <ion-row>
+                <ion-col style="padding: 0px 15px;">
+                    <ion-icon ios="ios-headset" md="md-headset"></ion-icon> 3
+                </ion-col>
+                <ion-col style="text-align: right;padding: 0px 15px;" *ngIf="r.status=='2'">
+                    <ion-spinner name="dots" color="secondary"></ion-spinner>
+                    <ion-badge color="danger">Live</ion-badge>
+                </ion-col>
+                <ion-col style="text-align: right;padding: 0px 15px;" *ngIf="r.status=='0'">
+                    <ion-spinner name="dots" ></ion-spinner>
+                    <ion-badge color="secondary" style="vertical-align: top">On Air</ion-badge>
+                </ion-col>
+                <ion-col style="text-align: right;padding: 0px 15px;" *ngIf="r.status=='1'">
+                    <ion-spinner name="dots" color="dark" paused></ion-spinner>
+                    <ion-badge color="dark" style="vertical-align: top" >Off</ion-badge>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-card>
+    <div *ngIf="m!=0" style="padding-bottom: 100px"></div>
 </ion-content>

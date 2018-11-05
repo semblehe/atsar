@@ -10,9 +10,12 @@ export class HomePage {
   loading: Loading;
   toast: Toast;
   radio:any;
-  track:any='1';
-  test:any='0';
+  track:any;
+    m:any='0';
+    t:any='0';
   promise:any;
+  judul:any;
+  test:any;
   constructor(private toastCtrl: ToastController,public navCtrl: NavController,public alertCtrl: AlertController,public loadingCtrl: LoadingController, public http: Http) {
 this.getRadio();
   }
@@ -37,27 +40,49 @@ getRadio() {
     }
 
 play(a,b,c) {
-        if(this.track!='1'){
-                this.track.pause();
-                this.track.currentTime = 0;
-        }
-        this.track = new Audio(a);
-        this.track.play();
-        this.promise = new Promise((resolve, reject) => {
-            this.track.addEventListener('playing', () => {
-                resolve(true);
-                    this.presentToast(c);
-                    this.test = '1';
-                    console.log(this.toast);
-            });
+       if(c) {
+           this.m = '1';
+           if (this.t != '0') {
+               this.track.pause();
+               this.track.currentTime = 0;
+           }
+           this.track = new Audio(a);
+           this.track.play();
+           this.promise = new Promise((resolve, reject) => {
+               this.track.addEventListener('playing', () => {
+                   resolve(true);
+                   if(this.judul!=c) {
+                       this.presentToast(c, 0);
+                   }
+                   this.t = '1';
+                   this.m = b;
+               });
 
-            this.track.addEventListener('error', () => {
-                reject(false);
-            });
-        });
-        return this.promise;
+               this.track.addEventListener('error', () => {
+                   reject(false);
+               });
+           });
+           return this.promise;
+       }else{
+           this.presentToast('Afwan, Radio Tidak Sedang Siaran',1);
+       }
+
     };
 
+pause(){
+    this.judul='0';
+    try {
+        this.toast.dismiss();
+        console.log('b');
+    } catch(e) {
+        console.log('a');
+    }
+        this.m = '0';
+        console.log(this.track);
+        this.track.pause();
+        this.track.currentTime = 0;
+    this.track.disable();
+}
 showLoading() {
   		this.loading = this.loadingCtrl.create({
   			content: 'Mohon tunggu...'
@@ -74,26 +99,30 @@ showLoading() {
   		alert.present();
   	}
 
-presentToast(p) {
+presentToast(p,d) {
+    this.judul=p;
     try {
         this.toast.dismiss();
-        console.log('b');
     } catch(e) {
-        console.log('a');
+    }
+    if(d==1){
+        d=3000;
+    }else{
+        d=false;
     }
   this.toast = this.toastCtrl.create({
    message: p,
-      showCloseButton: true,
-      // duration: duration,
-      closeButtonText: 'Close',
+      showCloseButton: false,
+      duration: d,
+      // closeButtonText: 'Close',
       dismissOnPageChange: true,
       cssClass: "csstoast",
 
   });
-        this.toast.onDidDismiss(() => {
-            // this.track.pause();
-            // this.track.currentTime = 0;
-        });
+        // this.toast.onDidDismiss(() => {
+        //     // this.track.pause();
+        //     // this.track.currentTime = 0;
+        // });
   this.toast.present();
 }
 
