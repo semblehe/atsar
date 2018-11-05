@@ -18,6 +18,10 @@ export class HomePage {
   test:any;
   constructor(private toastCtrl: ToastController,public navCtrl: NavController,public alertCtrl: AlertController,public loadingCtrl: LoadingController, public http: Http) {
 this.getRadio();
+      // window.localStorage.clear();
+
+// console.log(window.localStorage.getItem('tr'));
+//       console.log(window.localStorage.getItem('tra'));
   }
 
 getRadio() {
@@ -41,11 +45,17 @@ getRadio() {
 
 play(a,b,c) {
        if(c) {
+
+           if(window.localStorage.getItem('tr')=='1'){
+               window.location.reload();
+               window.localStorage.setItem('tr', '0');
+           }
            this.m = '1';
            if (this.t != '0') {
                this.track.pause();
                this.track.currentTime = 0;
            }
+
            this.track = new Audio(a);
            this.track.play();
            this.promise = new Promise((resolve, reject) => {
@@ -69,19 +79,18 @@ play(a,b,c) {
 
     };
 
-pause(){
-    this.judul='0';
+pause() {
+    this.judul = '0';
     try {
         this.toast.dismiss();
         console.log('b');
-    } catch(e) {
+    } catch (e) {
         console.log('a');
     }
-        this.m = '0';
-        console.log(this.track);
-        this.track.pause();
-        this.track.currentTime = 0;
-    this.track.disable();
+    this.m = '0';
+    console.log(this.track);
+    this.track.pause();
+    this.track.currentTime = 0;
 }
 showLoading() {
   		this.loading = this.loadingCtrl.create({
