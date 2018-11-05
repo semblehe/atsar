@@ -13,12 +13,14 @@ export class HomePage {
   track:any;
     m:any='0';
     t:any='0';
+    s:any;
   promise:any;
   judul:any;
   test:any;
   constructor(private toastCtrl: ToastController,public navCtrl: NavController,public alertCtrl: AlertController,public loadingCtrl: LoadingController, public http: Http) {
 this.getRadio();
       // window.localStorage.clear();
+      console.log(this.track);
 
 // console.log(window.localStorage.getItem('tr'));
 //       console.log(window.localStorage.getItem('tra'));
@@ -45,12 +47,13 @@ getRadio() {
 
 play(a,b,c) {
        if(c) {
-
            if(window.localStorage.getItem('tr')=='1'){
+               this.presentToast('Afwan, Mohon Tunggu',1);
                window.location.reload();
                window.localStorage.setItem('tr', '0');
            }
            this.m = '1';
+           this.s = b;
            if (this.t != '0') {
                this.track.pause();
                this.track.currentTime = 0;
@@ -66,6 +69,7 @@ play(a,b,c) {
                    }
                    this.t = '1';
                    this.m = b;
+                   console.log(this.track);
                });
 
                this.track.addEventListener('error', () => {
@@ -88,9 +92,9 @@ pause() {
         console.log('a');
     }
     this.m = '0';
-    console.log(this.track);
     this.track.pause();
     this.track.currentTime = 0;
+    window.localStorage.setItem('tr', '0');
 }
 showLoading() {
   		this.loading = this.loadingCtrl.create({

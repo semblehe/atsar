@@ -5,6 +5,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { JadwalPage } from '../pages/jadwal/jadwal';
+import { InfoPage } from '../pages/info/info';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -13,7 +15,9 @@ import { HttpModule } from '@angular/http';
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+      InfoPage,
+      JadwalPage
   ],
   imports: [
     BrowserModule,HttpModule,
@@ -23,7 +27,9 @@ import { HttpModule } from '@angular/http';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    InfoPage,
+    JadwalPage
   ],
   providers: [
     StatusBar,

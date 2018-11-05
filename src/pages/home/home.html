@@ -16,7 +16,7 @@
                         <b>{{r.judul}}</b>
                     </ion-col>
                     <ion-col style="text-align: right;padding: 1px">
-                        <ion-spinner name="circles" color="light" *ngIf="m==1"></ion-spinner>
+                        <ion-spinner name="circles" color="light" *ngIf="m==1&&s==r.idradio"></ion-spinner>
                         <button *ngIf="r.idradio==m" (click)="pause()"  ion-button small round color="danger" style="padding:10px;height:1.5em"> <ion-icon ios="ios-pause" md="md-pause"></ion-icon></button>
                     </ion-col>
                 </ion-row>
