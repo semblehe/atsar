@@ -26,6 +26,7 @@ this.getRadio();
 //       console.log(window.localStorage.getItem('tra'));
   }
 
+
 getRadio() {
         this.showLoading();
 
@@ -95,6 +96,10 @@ pause() {
     this.track.pause();
     this.track.currentTime = 0;
     window.localStorage.setItem('tr', '0');
+}
+
+refresh(){
+    this.getRadio();
 }
 showLoading() {
   		this.loading = this.loadingCtrl.create({
