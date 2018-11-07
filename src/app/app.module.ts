@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
@@ -11,6 +11,7 @@ import { InfoPage } from '../pages/info/info';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -34,8 +35,8 @@ import { HttpModule } from '@angular/http';
   ],
   providers: [
     StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    SplashScreen,StreamingMedia,
+      {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
 export class AppModule {}

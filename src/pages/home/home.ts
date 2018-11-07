@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { NavController,LoadingController, Loading, AlertController,ToastController,Toast } from 'ionic-angular';
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
 import 'rxjs/add/operator/map';
 @Component({
   selector: 'page-home',
@@ -17,7 +18,7 @@ export class HomePage {
   promise:any;
   judul:any;
   test:any;
-  constructor(private toastCtrl: ToastController,public navCtrl: NavController,public alertCtrl: AlertController,public loadingCtrl: LoadingController, public http: Http) {
+  constructor(private streamingMedia: StreamingMedia,private toastCtrl: ToastController,public navCtrl: NavController,public alertCtrl: AlertController,public loadingCtrl: LoadingController, public http: Http) {
 this.getRadio();
       // window.localStorage.clear();
       console.log(this.track);
@@ -46,7 +47,7 @@ getRadio() {
             });
     }
 
-play(a,b,c) {
+playb(a,b,c) {
        if(c) {
            if(window.localStorage.getItem('tr')=='1'){
                this.presentToast('Afwan, Mohon Tunggu',1);
@@ -83,6 +84,19 @@ play(a,b,c) {
        }
 
     };
+
+
+ play(a,b,c){
+     let options: StreamingVideoOptions = {
+         successCallback: () => { console.log('Video played') },
+         errorCallback: (e) => { console.log('Error streaming') },
+         orientation: 'landscape',
+         shouldAutoClose: true,
+         controls: false
+     };
+     this.streamingMedia.playAudio('http://manhajulanbiya.radioislam.my.id:8989/stream.mp3', options);
+     console.log(a);
+ }
 
 pause() {
     this.judul = '0';
